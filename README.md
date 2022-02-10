@@ -8,7 +8,7 @@ Another similar project had already written this in Tcl, without _dependencies_.
 Dependencies :
 -------------------------
 - [libharu](http://libharu.org/) v2.3.0
-- [Tcl cffi](https://github.com/apnadkarni/tcl-cffi) package >= 1.0b3
+- [Tcl cffi](https://cffi.magicsplat.com) package >= 1.0b3
 
 
 Examples :
