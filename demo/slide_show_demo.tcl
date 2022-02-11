@@ -38,7 +38,7 @@ proc print_page {page caption font style prev next encoding_name} {
 
     HPDF_Page_BeginText $page
     HPDF_Page_SetTextMatrix $page 0.8 0.0 0.0 1.0 0.0 0.0
-    HPDF_Page_TextOut $page 50 530 $caption
+    HPDF_Page_TextOut $page 50 530 [haru::hpdf_encode $caption $encoding_name]
 
     HPDF_Page_SetTextMatrix $page 1.0 0.0 0.0 1.0 0.0 0.0
     HPDF_Page_SetFontAndSize $page $font 20
