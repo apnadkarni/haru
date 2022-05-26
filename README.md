@@ -1,6 +1,6 @@
 haru - PDF library
 ================
-`haru` Tcl binding for [libharu](http://libharu.org/) PDF library.
+`haru` Tcl bindings for [libharu](http://libharu.org/) PDF library.
 My motivation was to be able to integrate a 3D file in a pdf, unfortunately for me this pure `Tcl library` [pdf4tcl](https://sourceforge.net/projects/pdf4tcl/) can not do it. That’s why this library was born...
 Another similar project had already written this in Tcl, without _dependencies_. You can find [here](http://reddog.s35.xrea.com/wiki/tclhpdf.html), functions are the same, but it does not include the latest `libharu` updates.
 
@@ -16,7 +16,7 @@ Examples :
 ```tcl
 package require haru
 
-set page_title "haru Tcl binding for libharu..."
+set page_title "haru Tcl bindings for libharu..."
 
 # init haru pdf...
 set pdf [HPDF_New]
