@@ -18,7 +18,7 @@ HPDF_Page_SetHeight $page 600
 set u3d [HPDF_LoadU3DFromFile $pdf [file join $demodir u3d animal.u3d]]
 set rect1 {left 0 bottom 0 right 600 top 600}
 
-set annot [HPDF_Page_Create3DAnnot $page $rect1 1 0 $u3d NULL]
+set annot [HPDF_Page_Create3DAnnot $page $rect1 $u3d]
 
 # save the document to a file
 set pdffilename [file rootname [file tail [info script]]]

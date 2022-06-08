@@ -5,7 +5,7 @@
 # 10-02-2022 : v1.0   Initial release
 
 package require Tcl 8.6
-package require cffi 1.0b3
+package require cffi 1.0
 
 set dir [file dirname [file normalize [info script]]]
 
@@ -16,7 +16,8 @@ source [file join $dir haru_utils.tcl]
 
 namespace eval haru {
 
-    variable libname "libhpdf-2.3.0"
+    variable libname "libhpdf"
+    variable hpdfversion "2.3.0"
     variable version 1.0
 
     # constant variables
@@ -40,7 +41,19 @@ namespace eval haru {
 }
 
 # Loading the library 
-cffi::Wrapper create HPDF $::haru::libname[info sharedlibextension]
+if {[catch {
+    cffi::Wrapper create HPDF $::haru::libname-$::haru::hpdfversion[info sharedlibextension]
+}]} {
+    # Could not find the version-labeled library. Load without version.
+    # We will check actual version later.
+    cffi::Wrapper create HPDF $::haru::libname[info sharedlibextension]
+}
+
+HPDF stdcall HPDF_GetVersion   string      {}
+set ::haru::hpdfversion [HPDF_GetVersion]
+if {![regexp {^2\.3\.} $::haru::hpdfversion]} {
+    error "libhpdf version $::haru::hpdfversion is unsupported. Need 2.3.*"
+}
 
 # Define type
 cffi::alias define HPDF_Doc          pointer.HPDF_Doc
@@ -114,7 +127,6 @@ cffi::alias define HPDF_WritingMode        {int {enum HPdfWritingMode}}
 
 HPDF stdcalls {
 
-    HPDF_GetVersion   string      {}
     HPDF_Free         void        {pdf {HPDF_Doc dispose}}
     HPDF_NewDoc       HPDF_STATUS {pdf HPDF_Doc}
     HPDF_FreeDoc      void        {pdf HPDF_Doc}
@@ -226,11 +238,6 @@ HPDF stdcalls {
         encoding_name {string nullifempty}
     }
 
-    HPDF_GetFontDef {HPDF_FontDef} {
-        pdf       HPDF_Doc
-        file_name string
-    }
-
     HPDF_LoadType1FontFromFile string {
         pdf         HPDF_Doc
         afmfilename string
@@ -262,6 +269,14 @@ HPDF stdcalls {
         style      HPDF_PageNumStyle
         first_page HPDF_UINT
         prefix     string
+    }
+}
+
+# Not exported in 2.3.0 on Windows. Ignore if not available
+catch {
+    HPDF stdcall HPDF_GetFontDef {HPDF_FontDef} {
+        pdf       HPDF_Doc
+        file_name string
     }
 }
 
@@ -380,10 +395,7 @@ HPDF stdcalls {
     HPDF_Page_Create3DAnnot HPDF_Annotation {
         page HPDF_Page
         rect HPDF_Rect
-        tb   HPDF_BOOL
-        np   HPDF_BOOL
         u3d  HPDF_U3D
-        ap   {HPDF_Image nullok}
     }
 
     HPDF_Page_CreateTextAnnot HPDF_Annotation {
@@ -1309,9 +1321,9 @@ HPDF stdcalls {
 }
 
 # mmgr.h
-HPDF stdcalls {
-
-    HPDF_MMgr_New HPDF_MMgr {
+# Not exported in 2.3.0 on Windows. Ignore if not available
+catch {
+    HPDF stdcall HPDF_MMgr_New HPDF_MMgr {
         user_error_fn   {pointer {default NULL} nullok} 
         user_error_data {pointer {default NULL} nullok}
         alloc_fn        {pointer {default NULL} nullok}
@@ -1320,29 +1332,29 @@ HPDF stdcalls {
 }
 
 # stream.h
-HPDF stdcalls {
+# Not exported in 2.3.0 on Windows. Ignore if not available
+catch {
+    HPDF stdcalls {
+        HPDF_FileReader_New HPDF_Stream {
+            mmgr  HPDF_MMgr
+            fname string
+        }
+        HPDF_FileWriter_New HPDF_Stream {
+            mmgr  HPDF_MMgr
+            fname string
+        }
+        HPDF_Stream_WriteToStream HPDF_STATUS {
+            src    HPDF_Stream
+            dst    HPDF_Stream
+            filter HPDF_UINT
+            e      {HPDF_Encrypt nullok}
+        }
 
-    HPDF_FileReader_New HPDF_Stream {
-        mmgr  HPDF_MMgr
-        fname string
-    }
-
-    HPDF_FileWriter_New HPDF_Stream {
-        mmgr  HPDF_MMgr
-        fname string
-    }
-
-    HPDF_Stream_WriteToStream HPDF_STATUS {
-        src    HPDF_Stream
-        dst    HPDF_Stream
-        filter HPDF_UINT
-        e      {HPDF_Encrypt nullok}
-    }
-
-    HPDF_Stream_WriteToStreamWithDeflate HPDF_STATUS {
-        src    HPDF_Stream
-        dst    HPDF_Stream
-        e      {HPDF_Encrypt nullok}
+        HPDF_Stream_WriteToStreamWithDeflate HPDF_STATUS {
+            src    HPDF_Stream
+            dst    HPDF_Stream
+            e      {HPDF_Encrypt nullok}
+        }
     }
 }
 
