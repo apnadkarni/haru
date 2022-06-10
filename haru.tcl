@@ -1,8 +1,11 @@
 # Copyright (c) 2022 Nicolas ROBERT.
 # Distributed under MIT license. Please see LICENSE for details.
-# haru - Tcl binding for libharu (http://libharu.org/) PDF library.
+# haru - Tcl bindings for libharu (http://libharu.org/) PDF library.
 
 # 10-02-2022 : v1.0   Initial release
+# 12-06-2022 : v1.1
+               # Fixes u3d_demo.tcl, to make it work with libharu 2.3.
+               # Ignore some functions if not available. (Windows OS)
 
 package require Tcl 8.6
 package require cffi 1.0
@@ -18,7 +21,7 @@ namespace eval haru {
 
     variable libname "libhpdf"
     variable hpdfversion "2.3.0"
-    variable version 1.0
+    variable version 1.1
 
     # constant variables
     variable HPDF_TRUE            1

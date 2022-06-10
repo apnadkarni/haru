@@ -72,3 +72,6 @@ Release :
 -------------------------
 *  **10-02-2022** : 1.0
     - Initial release.
+*  **12-06-2022** : 1.1
+    - Fixes u3d_demo.tcl, to make it work with libharu 2.3.
+    - Ignore some functions if not available. (Windows OS)
