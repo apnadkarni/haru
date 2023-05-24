@@ -1,4 +1,4 @@
-# Copyright (c) 2022 Nicolas ROBERT.
+# Copyright (c) 2022-2023 Nicolas ROBERT.
 # Distributed under MIT license. Please see LICENSE for details.
 # haru - Tcl binding for libharu (http://libharu.org/) PDF library.
 
@@ -13,7 +13,12 @@ proc haru::hpdf_encode {text {hpdf_encoding "null"}} {
     switch -exact -- $hpdf_encoding {
         "null"             -
         "StandardEncoding" {set encode cp1252}
-        "MacRomanEncoding" {set encode macroman}
+        "MacRomanEncoding" {
+            if {$::tcl_platform(os) ne "Darwin"} {
+                error "'MacRomanEncoding' encoding not supported for this OS"
+            }
+            set encode macroman
+        }
         "WinAnsiEncoding"  {set encode cp1252}
         "ISO8859-2"        {set encode iso8859-2}
         "ISO8859-3"        {set encode iso8859-3}
@@ -34,7 +39,7 @@ proc haru::hpdf_encode {text {hpdf_encoding "null"}} {
         "Symbol-Set"       {set encode symbol}
         "ZapfDingbats-Set" {set encode dingbats}
         "shiftjis"         {set encode shiftjis} ; # special case for jpfont_demo.tcl
-        default {error "unrecognized encoding name"}
+        default {error "unrecognized encoding name '$hpdf_encoding'"}
     }
 
     # Note: two nulls appended in case encoding is double-byte
