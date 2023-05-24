@@ -1,5 +1,5 @@
 #
-# << Haru Free PDF Library 2.3.0 >> -- character_map.c
+# << Haru Free PDF Library 2.4.3 >> -- character_map.c
 #
 # Copyright (c) 1999-2006 Takeshi Kanno <takeshi_kanno@est.hi-ho.ne.jp>
 #
@@ -14,7 +14,7 @@
 # port to Tcl by Nicolas Robert
 
 set demodir [file dirname [info script]]
-lappend auto_path [file dirname $demodir]
+lappend auto_path [file dirname [file dirname $demodir]]
 
 package require haru
 

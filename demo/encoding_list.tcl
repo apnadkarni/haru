@@ -1,5 +1,5 @@
 #
-# << Haru Free PDF Library 2.3.0 >> -- encoding_list.c
+# << Haru Free PDF Library 2.4.3 >> -- encoding_list.c
 #
 # Copyright (c) 1999-2006 Takeshi Kanno <takeshi_kanno@est.hi-ho.ne.jp>
 #
@@ -14,7 +14,7 @@
 # port to Tcl by Nicolas Robert
 
 set demodir [file dirname [info script]]
-lappend auto_path [file dirname $demodir]
+lappend auto_path [file dirname [file dirname $demodir]]
 
 package require haru
 
@@ -140,6 +140,11 @@ set root [HPDF_CreateOutline $pdf NULL "Encoding list" NULL]
 HPDF_Outline_SetOpened $root $::haru::HPDF_TRUE
 
 foreach encoder $encodings {
+
+    if {$::tcl_platform(os) ne "Darwin" && $encoder eq "MacRomanEncoding"} {
+        # 'MacRomanEncoding' encoding not supported for other platforms than Mac OS (I think)
+        continue
+    }
 
     set page [HPDF_AddPage $pdf]
     HPDF_Page_SetWidth $page $PAGE_WIDTH
