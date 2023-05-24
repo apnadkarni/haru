@@ -1,14 +1,19 @@
 haru - PDF library
 ================
-`haru` Tcl bindings for [libharu](http://libharu.org/) PDF library.
-My motivation was to be able to integrate a 3D file in a pdf, unfortunately for me this pure `Tcl library` [pdf4tcl](https://sourceforge.net/projects/pdf4tcl/) can not do it. That’s why this library was born...
-Another similar project had already written this in Tcl, without _dependencies_. You can find [here](http://reddog.s35.xrea.com/wiki/tclhpdf.html), functions are the same, but it does not include the latest `libharu` updates.
+`haru` Tcl bindings for [libharu](http://libharu.org/).   
 
+Motivation :
+-------------------------
+
+Be able to integrate a 3D file in a PDF, unlike this package [pdf4tcl](https://sourceforge.net/projects/pdf4tcl/).   
+
+> **Note** : Another similar project had already written this in Tcl, without _dependencies_.  
+You can find [here](http://reddog.s35.xrea.com/wiki/tclhpdf.html), functions are the same, but it does not include the latest `libharu` updates.   
 
 Dependencies :
 -------------------------
-- [libharu](http://libharu.org/) v2.3.0
-- [Tcl cffi](https://cffi.magicsplat.com) package >= 1.0b3
+- [libharu](http://libharu.org/) v2.4.3
+- [Tcl cffi](https://cffi.magicsplat.com) >= 1.0
 
 
 Examples :
@@ -21,7 +26,7 @@ set page_title "haru Tcl bindings for libharu..."
 # init haru pdf...
 set pdf [HPDF_New]
 
-# add a new page object.
+# adds a new page object.
 set page [HPDF_AddPage $pdf]
 
 # page format
@@ -46,7 +51,7 @@ HPDF_Page_EndText $page
 # save the document to a file
 HPDF_SaveToFile $pdf haru.pdf
 
-# free...
+# free... (because we are FREE!)
 HPDF_Free $pdf
 ```
 Some characters may not display correctly when you want to add text for certain functions `HPDF_Page_TextOut`, `HPDF_Page_ShowText`...
@@ -75,3 +80,7 @@ Release :
 *  **12-06-2022** : 1.1
     - Fixes u3d_demo.tcl, to make it work with libharu 2.3.
     - Ignore some functions if not available. (Windows OS)
+*  **24-05-2023** : 1.2
+    - Bumped libharu to v2.4.3.
+    - Cosmetic changes.
+    - Tested on Windows and Mac OS.

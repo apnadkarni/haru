@@ -1,1 +1,15 @@
-package ifneeded haru 1.1 [list source [file join $dir haru.tcl]]
+# Copyright (c) 2022-2023 Nicolas ROBERT.
+# Distributed under MIT license. Please see LICENSE for details.
+# haru - Tcl bindings for libharu (http://libharu.org/) PDF library.
+
+package ifneeded haru 1.2 [list apply {dir {
+
+    source [file join $dir haru.tcl]
+    source [file join $dir haru_enum.tcl]
+    source [file join $dir haru_struct.tcl]
+    source [file join $dir haru_error.tcl]
+    source [file join $dir haru_alias.tcl]
+    source [file join $dir haru_utils.tcl]
+    source [file join $dir haru_funcs.tcl]
+
+}} $dir]
