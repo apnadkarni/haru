@@ -1,4 +1,4 @@
-# Copyright (c) 2022 Nicolas ROBERT.
+# Copyright (c) 2022-2023 Nicolas ROBERT.
 # Distributed under MIT license. Please see LICENSE for details.
 # haru - Tcl binding for libharu (http://libharu.org/) PDF library.
 
