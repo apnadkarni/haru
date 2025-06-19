@@ -1,8 +1,8 @@
-# Copyright (c) 2022-2023 Nicolas ROBERT.
+# Copyright (c) 2022-2025 Nicolas ROBERT.
 # Distributed under MIT license. Please see LICENSE for details.
 # haru - Tcl bindings for libharu (http://libharu.org/) PDF library.
 
-package ifneeded haru 1.2 [list apply {dir {
+package ifneeded haru 2.0 [list apply {dir {
 
     source [file join $dir haru.tcl]
     source [file join $dir haru_enum.tcl]

@@ -1,60 +1,64 @@
-# Copyright (c) 2022-2023 Nicolas ROBERT.
+# Copyright (c) 2022-2025 Nicolas ROBERT.
 # Distributed under MIT license. Please see LICENSE for details.
 # haru - Tcl bindings for libharu (http://libharu.org/) PDF library.
 
-# 10-02-2022 : v1.0   Initial release
-# 12-06-2022 : v1.1
+# 10-Feb-2022 : v1.0   Initial release
+# 12-Jun-2022 : v1.1
                # Fixes u3d_demo.tcl, to make it work with libharu 2.3.
                # Ignore some functions if not available. (Windows OS)
-# 24-05-2023 : v1.2
+# 24-May-2023 : v1.2
                # Bumped libharu to v2.4.3.
                # Cosmetic changes.
-               # Tested on Windows and Mac OS.
+               # Tested on Windows and MacOS.
+# 19-Jun-2025 : v2.0
+               # Bumped libharu to `v2.4.5`.
+               # Bumped package `tcl-cffi` to v2.*.
+               # Support for Tcl9.
+               # Try checking several places for the location of `libharu` lib.
+               # Tested on Windows and MacOS.
+               # Incompatibility with previous versions of this package :
+               #   - Use `cffi::enum` instead of global variables 
+               #    (see haru_enum.tcl : HPDF_TRUE, HPDF_COMP_ALL, etc...).
+               # Cosmetic changes.
 
-package require Tcl 8.6
-package require cffi 1.0
+package require Tcl 8.6-
+package require cffi 2.0
 
 namespace eval haru {
-
-    variable libname "libhpdf"
-    variable hpdfversion "2.4.3"
-    variable version 1.2
-
-    # constant variables
-    variable HPDF_TRUE            1
-    variable HPDF_FALSE           0
-    variable HPDF_COMP_NONE       0
-    variable HPDF_COMP_TEXT       1
-    variable HPDF_COMP_IMAGE      2
-    variable HPDF_COMP_METADATA   4
-    variable HPDF_COMP_ALL        15
-    variable HPDF_HIDE_TOOLBAR    1
-    variable HPDF_HIDE_MENUBAR    2
-    variable HPDF_HIDE_WINDOW_UI  4
-    variable HPDF_FIT_WINDOW      8
-    variable HPDF_CENTER_WINDOW   16
-    variable HPDF_ENABLE_READ     0
-    variable HPDF_ENABLE_PRINT    4
-    variable HPDF_ENABLE_EDIT_ALL 8
-    variable HPDF_ENABLE_COPY     16
-    variable HPDF_ENABLE_EDIT     32
+    variable hpdfversion "2.4.5"
+    variable version 2.0
 }
 
-# Loading the library 
-if {[catch {
-    cffi::Wrapper create HPDF $::haru::libname-$::haru::hpdfversion[info sharedlibextension]
-}]} {
-    # Could not find the version-labeled library. Load without version.
-    # We will check actual version later.
-    cffi::Wrapper create HPDF $::haru::libname[info sharedlibextension]
+# Try checking several places..
+set lib_names [subst {
+    libhpdf 
+    hpdf
+    /usr/local/lib/libhpdf
+    libhpdf.$::haru::hpdfversion
+    libhpdf-$::haru::hpdfversion
+}]
+
+set lib_found 0
+set lname {}
+
+foreach name $lib_names {
+    if {![catch {
+        cffi::Wrapper create HPDF ${name}[info sharedlibextension]
+    } err]
+    } {
+        set lib_found 1; break
+    }; lappend lname $err
 }
+
+# Generate error message if lib not found.
+if {!$lib_found} {return -code error [join $lname \n]}
 
 # Gets hpdf version.
 HPDF stdcall HPDF_GetVersion string {}
-set ::haru::hpdfversion [HPDF_GetVersion]
 
-if {![regexp {^2\.4\.} $::haru::hpdfversion]} {
-    error "libhpdf version $::haru::hpdfversion is unsupported. Need 2.4.*"
+if {[package vcompare [HPDF_GetVersion] $::haru::hpdfversion] < 0} {
+    error "libhpdf version '[HPDF_GetVersion]' is\
+           unsupported. Need '$::haru::hpdfversion' or later."
 }
 
 package provide haru $::haru::version
