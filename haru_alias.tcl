@@ -1,4 +1,4 @@
-# Copyright (c) 2022-2023 Nicolas ROBERT.
+# Copyright (c) 2022-2025 Nicolas ROBERT.
 # Distributed under MIT license. Please see LICENSE for details.
 # haru - Tcl binding for libharu (http://libharu.org/) PDF library.
 
@@ -26,7 +26,6 @@ cffi::alias define HPDF_EmbeddedFile pointer.HPDF_EmbeddedFile
 cffi::alias define HPDF_Shading      pointer.HPDF_Shading
 
 cffi::alias define HPDF_STATUS           {ulong zero}
-cffi::alias define HPDF_BOOL             int
 cffi::alias define HPDF_INT              int
 cffi::alias define HPDF_UINT             uint
 cffi::alias define HPDF_REAL             float
@@ -70,3 +69,7 @@ cffi::alias define HPDF_ByteType           {int {enum HPdfByteType}}
 cffi::alias define HPDF_WritingMode        {int {enum HPdfWritingMode}}
 cffi::alias define HPDF_ShadingType        {int {enum HPdfShadingType}   {default HPDF_SHADING_FREE_FORM_TRIANGLE_MESH}}
 cffi::alias define HPDF_Shading_FFTMEF     {int {enum HPdfShading_FreeFormTriangleMeshEdgeFlag}}
+cffi::alias define HPDF_BOOL               {int {enum HPdfDefineBool}}
+cffi::alias define HPDF_COMP               {int {enum HPdfDefineComp}}
+cffi::alias define HPDF_PREF               {int {enum HPdfDefinePreference}}
+cffi::alias define HPDF_ENABLE             {int {enum HPdfDefineEnable}}

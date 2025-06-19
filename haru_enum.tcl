@@ -1,4 +1,4 @@
-# Copyright (c) 2022-2023 Nicolas ROBERT.
+# Copyright (c) 2022-2025 Nicolas ROBERT.
 # Distributed under MIT license. Please see LICENSE for details.
 # haru - Tcl binding for libharu (http://libharu.org/) PDF library.
 
@@ -196,4 +196,34 @@ cffi::enum sequence HPdfShading_FreeFormTriangleMeshEdgeFlag {
     HPDF_FREE_FORM_TRI_MESH_EDGEFLAG_NO_CONNECTION     
     HPDF_FREE_FORM_TRI_MESH_EDGEFLAG_BC   
     HPDF_FREE_FORM_TRI_MESH_EDGEFLAG_AC        
+}
+
+cffi::enum define HPdfDefineBool {
+    HPDF_TRUE  1
+    HPDF_FALSE 0
+}
+
+cffi::enum define HPdfDefineComp {
+    HPDF_COMP_NONE     0
+    HPDF_COMP_TEXT     1
+    HPDF_COMP_IMAGE    2
+    HPDF_COMP_METADATA 4
+    HPDF_COMP_ALL      15
+}
+
+cffi::enum define HPdfDefinePreference {
+    HPDF_HIDE_TOOLBAR        1
+    HPDF_HIDE_MENUBAR        2
+    HPDF_HIDE_WINDOW_UI      4
+    HPDF_FIT_WINDOW          8
+    HPDF_CENTER_WINDOW       16
+    HPDF_PRINT_SCALING_NONE  32
+}
+
+cffi::enum define HPdfDefineEnable {
+    HPDF_ENABLE_READ     0
+    HPDF_ENABLE_PRINT    4
+    HPDF_ENABLE_EDIT_ALL 8
+    HPDF_ENABLE_COPY     16
+    HPDF_ENABLE_EDIT     32
 }

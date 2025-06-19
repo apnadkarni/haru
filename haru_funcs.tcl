@@ -1,4 +1,4 @@
-# Copyright (c) 2022-2023 Nicolas ROBERT.
+# Copyright (c) 2022-2025 Nicolas ROBERT.
 # Distributed under MIT license. Please see LICENSE for details.
 # haru - Tcl binding for libharu (http://libharu.org/) PDF library.
 
@@ -713,7 +713,7 @@ HPDF stdcalls {
 
     HPDF_SetCompressionMode HPDF_STATUS {
         pdf  HPDF_Doc
-        mode HPDF_UINT
+        mode HPDF_COMP
     }
 }
 
@@ -795,7 +795,7 @@ HPDF stdcalls {
         text       binary
         width      HPDF_REAL
         wordwrap   HPDF_BOOL
-        real_width HPDF_REAL
+        real_width {HPDF_REAL out}
     }
 
     HPDF_Page_GetWidth      HPDF_REAL   {page HPDF_Page}
