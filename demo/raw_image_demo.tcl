@@ -1,5 +1,5 @@
 #
-# << Haru Free PDF Library 2.4.3 >> -- raw_image_demo.c
+# << Haru Free PDF Library 2.4.5 >> -- raw_image_demo.c
 #
 # Copyright (c) 1999-2006 Takeshi Kanno <takeshi_kanno@est.hi-ho.ne.jp>
 #
@@ -40,7 +40,7 @@ set RAW_IMAGE_DATA {
 
 set pdf [HPDF_New]
 
-HPDF_SetCompressionMode $pdf $::haru::HPDF_COMP_ALL
+HPDF_SetCompressionMode $pdf HPDF_COMP_ALL
 
 # create default-font
 set font [HPDF_GetFont $pdf "Helvetica" "WinAnsiEncoding"]

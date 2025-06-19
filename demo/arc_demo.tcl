@@ -1,5 +1,5 @@
 #
-# << Haru Free PDF Library 2.4.3 >> -- arc_demo.c
+# << Haru Free PDF Library 2.4.5 >> -- arc_demo.c
 #
 # Copyright (c) 1999-2006 Takeshi Kanno <takeshi_kanno@est.hi-ho.ne.jp>
 #
@@ -43,7 +43,7 @@ proc print_grid {pdf page} {
         HPDF_Page_LineTo $page $width $y
         HPDF_Page_Stroke $page
 
-        if {$y % 10 == 0 && $y > 0} {
+        if {($y % 10 == 0) && ($y > 0)} {
             HPDF_Page_SetGrayStroke $page 0.5
 
             HPDF_Page_MoveTo $page 0 $y
@@ -65,12 +65,11 @@ proc print_grid {pdf page} {
                 HPDF_Page_SetLineWidth $page 0.25
             }
         }
-
         HPDF_Page_MoveTo $page $x 0
         HPDF_Page_LineTo $page $x $height
         HPDF_Page_Stroke $page
 
-        if {$x % 50 == 0 && $x > 0} {
+        if {($x % 50 == 0) && ($x > 0)} {
             HPDF_Page_SetGrayStroke $page 0.5
 
             HPDF_Page_MoveTo $page $x 0
@@ -83,14 +82,12 @@ proc print_grid {pdf page} {
 
             HPDF_Page_SetGrayStroke $page 0.8
         }
-
         incr x 5
     }
 
     set y 0
     while {$y < $height} {
-
-        if {$y % 10 == 0 && $y > 0} {
+        if {($y % 10 == 0) && ($y > 0)} {
 
             HPDF_Page_BeginText $page
             HPDF_Page_MoveTextPos $page 5 [expr {$y - 2}]
@@ -99,17 +96,13 @@ proc print_grid {pdf page} {
 
             HPDF_Page_ShowText $page $buf
             HPDF_Page_EndText $page
-
         }
-
         incr y 5
-
     }
 
     set x 0
     while {$x < $width} {
-
-        if {$x % 50 == 0 && $x > 0} {
+        if {($x % 50 == 0) && ($x > 0)} {
 
             HPDF_Page_BeginText $page
             HPDF_Page_MoveTextPos $page $x 5
@@ -123,13 +116,9 @@ proc print_grid {pdf page} {
             HPDF_Page_MoveTextPos $page $x [expr {$height - 10}]
             HPDF_Page_ShowText $page $buf
             HPDF_Page_EndText $page
-
         }
-
-
         incr x 5
     } 
-
      HPDF_Page_SetGrayFill $page 0
      HPDF_Page_SetGrayStroke $page 0  
 }

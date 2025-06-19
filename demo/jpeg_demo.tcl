@@ -1,5 +1,5 @@
 #
-# << Haru Free PDF Library 2.4.3 >> -- jpeg_demo.c
+# << Haru Free PDF Library 2.4.5 >> -- jpeg_demo.c
 #
 # Copyright (c) 1999-2006 Takeshi Kanno <takeshi_kanno@est.hi-ho.ne.jp>
 #
@@ -37,7 +37,7 @@ proc draw_image {pdf filename x y text} {
 
 
 set pdf [HPDF_New] 
-HPDF_SetCompressionMode $pdf $::haru::HPDF_COMP_ALL
+HPDF_SetCompressionMode $pdf HPDF_COMP_ALL
 
 set font [HPDF_GetFont $pdf "Helvetica" ""]
 set page [HPDF_AddPage $pdf]

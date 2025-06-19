@@ -1,5 +1,5 @@
 #
-# << Haru Free PDF Library 2.4.3 >> -- text_demo.c
+# << Haru Free PDF Library 2.4.5 >> -- text_demo.c
 #
 # Copyright (c) 1999-2006 Takeshi Kanno <takeshi_kanno@est.hi-ho.ne.jp>
 #
@@ -166,7 +166,7 @@ set samp_text2 "The quick brown fox jumps over the lazy dog."
 set pdf [HPDF_New]
 
 # set compression mode
-HPDF_SetCompressionMode $pdf $::haru::HPDF_COMP_ALL
+HPDF_SetCompressionMode $pdf HPDF_COMP_ALL
 
 # create default-font
 set font [HPDF_GetFont $pdf "Helvetica" ""]
@@ -207,8 +207,10 @@ while {$fsize < 60} {
     set buf $samp_text
 
     # measure the number of characters which included in the page.
-    set length [HPDF_Page_MeasureText $page [haru::hpdf_encode $samp_text] [expr {[HPDF_Page_GetWidth $page] - 120}] \
-                                            $::haru::HPDF_FALSE 0]
+    set length [HPDF_Page_MeasureText $page \
+        [haru::hpdf_encode $samp_text] \
+        [expr {[HPDF_Page_GetWidth $page] - 120}] \
+        HPDF_FALSE len]
 
     # truncate the text.
     set buf [string range $buf 0 $length]

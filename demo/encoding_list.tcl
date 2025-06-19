@@ -1,5 +1,5 @@
 #
-# << Haru Free PDF Library 2.4.3 >> -- encoding_list.c
+# << Haru Free PDF Library 2.4.5 >> -- encoding_list.c
 #
 # Copyright (c) 1999-2006 Takeshi Kanno <takeshi_kanno@est.hi-ho.ne.jp>
 #
@@ -123,7 +123,7 @@ set encodings {
 set pdf [HPDF_New]
 
 # set compression mode
-HPDF_SetCompressionMode $pdf $::haru::HPDF_COMP_ALL
+HPDF_SetCompressionMode $pdf HPDF_COMP_ALL
 
 # Set page mode to use outlines.
 HPDF_SetPageMode $pdf HPDF_PAGE_MODE_USE_OUTLINE
@@ -137,7 +137,7 @@ set font_name [HPDF_LoadType1FontFromFile $pdf [file join $demodir type1 a010013
 # create outline root.
 set root [HPDF_CreateOutline $pdf NULL "Encoding list" NULL]
 
-HPDF_Outline_SetOpened $root $::haru::HPDF_TRUE
+HPDF_Outline_SetOpened $root HPDF_TRUE
 
 foreach encoder $encodings {
 

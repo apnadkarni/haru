@@ -1,5 +1,5 @@
 #
-# << Haru Free PDF Library 2.4.3 >> -- jpfont_demo.c
+# << Haru Free PDF Library 2.4.5 >> -- jpfont_demo.c
 #
 # Copyright (c) 1999-2006 Takeshi Kanno <takeshi_kanno@est.hi-ho.ne.jp>
 #
@@ -27,7 +27,7 @@ close $fp
 
 set pdf [HPDF_New]
 
-HPDF_SetCompressionMode $pdf $::haru::HPDF_COMP_ALL
+HPDF_SetCompressionMode $pdf HPDF_COMP_ALL
 
 # declaration for using Japanese font, encoding.
 HPDF_UseJPEncodings $pdf
@@ -53,7 +53,7 @@ set detail_font(15) [HPDF_GetFont $pdf "MS-PGothic,BoldItalic" "90msp-RKSJ-H"]
 HPDF_SetPageMode $pdf HPDF_PAGE_MODE_USE_OUTLINE
 
 set root [HPDF_CreateOutline $pdf NULL "JP font demo" NULL]
-HPDF_Outline_SetOpened $root $::haru::HPDF_TRUE
+HPDF_Outline_SetOpened $root HPDF_TRUE
 
 for {set i 0} {$i < 16} {incr i} {
     set page [HPDF_AddPage $pdf]

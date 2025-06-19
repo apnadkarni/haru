@@ -1,5 +1,5 @@
 #
-# << Haru Free PDF Library 2.4.3 >> -- text_demo2.c
+# << Haru Free PDF Library 2.4.5 >> -- text_demo2.c
 #
 # Copyright (c) 1999-2006 Takeshi Kanno <takeshi_kanno@est.hi-ho.ne.jp>
 #

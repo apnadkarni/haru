@@ -1,5 +1,5 @@
 #
-# << Haru Free PDF Library 2.4.3 >> -- encryption.c
+# << Haru Free PDF Library 2.4.5 >> -- encryption.c
 #
 # Copyright (c) 1999-2006 Takeshi Kanno <takeshi_kanno@est.hi-ho.ne.jp>
 #

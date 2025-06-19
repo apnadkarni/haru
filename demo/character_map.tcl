@@ -1,5 +1,5 @@
 #
-# << Haru Free PDF Library 2.4.3 >> -- character_map.c
+# << Haru Free PDF Library 2.4.5 >> -- character_map.c
 #
 # Copyright (c) 1999-2006 Takeshi Kanno <takeshi_kanno@est.hi-ho.ne.jp>
 #
@@ -158,7 +158,7 @@ proc draw_page {pdf page title_font font h_byte l_byte} {
 set pdf [HPDF_New]
 
 HPDF_SetPageMode $pdf HPDF_PAGE_MODE_USE_OUTLINE
-HPDF_SetCompressionMode    $pdf $::haru::HPDF_COMP_ALL
+HPDF_SetCompressionMode    $pdf HPDF_COMP_ALL
 HPDF_SetPagesConfiguration $pdf 10
 
 HPDF_UseJPEncodings  $pdf
@@ -173,8 +173,9 @@ HPDF_UseCNTFonts     $pdf
 set cmap "KSCms-UHC-HW-H"
 set ft "BatangChe"
 set encoder [HPDF_GetEncoder $pdf $cmap]
+set gtenc [HPDF_Encoder_GetType $encoder]
 
-if {[HPDF_Encoder_GetType $encoder] ne "HPDF_ENCODER_TYPE_DOUBLE_BYTE"} {
+if {[cffi::enum name HPdfEncoderType $gtenc] ne "HPDF_ENCODER_TYPE_DOUBLE_BYTE"} {
     error "error: $cmap is not cmap-encoder"
 }
 
@@ -186,45 +187,33 @@ set max_l 0
 set max_h 0
 
 for {set i 0} {$i < 256} {incr i} {
-
     for {set j 20} {$j < 256} {incr j} {
 
         set code [expr $i * 256 + $j]
         set buf [binary format c* [list $i $j 0]]
 
-        set btype [HPDF_Encoder_GetByteType $encoder $buf 0]
+        set btype   [HPDF_Encoder_GetByteType $encoder $buf 0]
         set unicode [HPDF_Encoder_GetUnicode $encoder $code]
 
         set unicode [format %X $unicode]
 
-        if {$btype == "HPDF_BYTE_TYPE_LEAD" && $unicode != "25A1"} {
-
-            if {$min_l > $j} {
-                set min_l $j
-            }
-
-            if {$max_l < $j} {
-                set max_l $j
-            }
-
-            if {$min_h > $i} {
-                set min_h $i
-            }
-        
-            if {$max_h < $i} {
-                set max_h $i
-            }
+        if {
+            ([cffi::enum name HPdfByteType $btype] eq "HPDF_BYTE_TYPE_LEAD") &&
+            ($unicode != "25A1")
+        } {
+            if {$min_l > $j} {set min_l $j}
+            if {$max_l < $j} {set max_l $j}
+            if {$min_h > $i} {set min_h $i}
+            if {$max_h < $i} {set max_h $i}
 
             set flg($i) 1
-        
         }
     }
-    
 }
 
 # puts "$min_h $max_h $min_l $max_l"
 set root [HPDF_CreateOutline $pdf NULL $cmap NULL]
-HPDF_Outline_SetOpened $root 1
+HPDF_Outline_SetOpened $root HPDF_TRUE
 
 for {set i 0} {$i < 256} {incr i} {
 
@@ -232,7 +221,6 @@ for {set i 0} {$i < 256} {incr i} {
         set page [HPDF_AddPage $pdf]
         set title_font [HPDF_GetFont $pdf "Helvetica" ""]
 
-        set buf [format "0x%04X-0x%04X" [expr {$i * 256 + $min_l}] [expr {$i * 256 + $max_l}]]
         set outline [HPDF_CreateOutline $pdf $root $cmap NULL]
 
         set dest [HPDF_Page_CreateDestination $page]

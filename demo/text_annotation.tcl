@@ -1,5 +1,5 @@
 #
-# << Haru Free PDF Library 2.4.3 >> -- text_annotation.c
+# << Haru Free PDF Library 2.4.5 >> -- text_annotation.c
 #
 # Copyright (c) 1999-2006 Takeshi Kanno <takeshi_kanno@est.hi-ho.ne.jp>
 #
@@ -50,7 +50,7 @@ set text [haru::hpdf_encode "Annotation with Comment Icon. \n This annotation se
 set annot [HPDF_Page_CreateTextAnnot $page $rect1 $text NULL]
 
 HPDF_TextAnnot_SetIcon $annot HPDF_ANNOT_ICON_COMMENT
-HPDF_TextAnnot_SetOpened $annot $::haru::HPDF_TRUE
+HPDF_TextAnnot_SetOpened $annot HPDF_TRUE
 
 set text [haru::hpdf_encode "Annotation with Key Icon" $encode]
 set annot [HPDF_Page_CreateTextAnnot $page $rect2 $text NULL]
