@@ -28,7 +28,7 @@ namespace eval haru {
     variable hpdfMinVersion "2.4.3"
     variable version 2.0
     variable packageDirectory [file dirname [file normalize [info script]]]
-    variable supportedHpdfVersions [list 2.4.5]
+    variable supportedHpdfVersions [list 2.4.3 2.4.4 2.4.5]
 
     proc load_hpdf {} {
         # Locates and loads the hpdf shared library
