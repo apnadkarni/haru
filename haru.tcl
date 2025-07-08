@@ -20,13 +20,18 @@
                #   - Use `cffi::enum` instead of global variables 
                #    (see haru_enum.tcl : HPDF_TRUE, HPDF_COMP_ALL, etc...).
                # Cosmetic changes.
+# 08-Jul-2025 : v2.1
+               # Enhanced cross-platform library search functionality.
+               # The minimum supported libharu version is now `2.4.3`.
+               # Support for multiple versions of libharu until `2.4.5`.
+
 
 package require Tcl 8.6-
 package require cffi 2.0
 
 namespace eval haru {
     variable hpdfMinVersion "2.4.3"
-    variable version 2.0
+    variable version 2.1
     variable packageDirectory [file dirname [file normalize [info script]]]
     variable supportedHpdfVersions [list 2.4.3 2.4.4 2.4.5]
 

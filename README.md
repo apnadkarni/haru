@@ -7,14 +7,15 @@ Motivation :
 
 Be able to integrate a 3D file in a PDF, unlike this package [pdf4tcl](https://sourceforge.net/projects/pdf4tcl/).   
 
-> **Note** : Another similar project had already written this in Tcl, without _dependencies_.  
-You can find [here](http://reddog.s35.xrea.com/wiki/tclhpdf.html), functions are the same, but it does not include the latest `libharu` updates.   
+> [!NOTE]  
+> Another similar project had already written this in Tcl, without _dependencies_.   
+You can find [here](http://reddog.s35.xrea.com/wiki/tclhpdf.html), functions are the same, but it does not include the latest `libharu` updates.  
 
 Requirements :
 -------------------------
 - [Tcl](https://www.tcl.tk/) 8.6 or higher
 - [tcl-cffi](https://cffi.magicsplat.com) >= 2.0
-- [libharu](http://libharu.org/) >= v2.4.5
+- [libharu](http://libharu.org/) >= v2.4.3
 
 Examples :
 -------------------------
@@ -93,3 +94,7 @@ Release :
     - Incompatibility with previous versions of this package :
         - Use `cffi::enum` instead of global variables (see haru_enum.tcl : HPDF_TRUE, HPDF_COMP_ALL, etc...).
     - Cosmetic changes.
+*  **08-Jul-2025** : 2.1
+    - Enhanced cross-platform library search functionality.
+    - The minimum supported libharu version is now `2.4.3`.
+    - Support for multiple versions of libharu until `2.4.5`.
