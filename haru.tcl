@@ -96,11 +96,11 @@ namespace eval haru {
         # On Windows, the latter is probably redundant but...
         lappend searchPaths $packageDirectory
         lappend searchPaths [file dirname [info nameofexecutable]]
-# Specific case for macOS where the shared library is installed
-# under '/usr/local/lib'.
-if {$::tcl_platform(platform) eq "unix"} {
-    set searchPaths [linsert $searchPaths 0 "/usr/local/lib"]
-}
+        # Specific case for macOS where the shared library is installed
+        # under '/usr/local/lib'.
+        if {$::tcl_platform(platform) eq "unix"} {
+            set searchPaths [linsert $searchPaths 0 "/usr/local/lib"]
+        }
         # Now do the actual search over search path for each possible name
         foreach searchPath $searchPaths {
             foreach fileName $fileNames {
