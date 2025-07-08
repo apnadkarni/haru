@@ -25,7 +25,7 @@ package require Tcl 8.6-
 package require cffi 2.0
 
 namespace eval haru {
-    variable hpdfMinVersion "2.4.5"
+    variable hpdfMinVersion "2.4.3"
     variable version 2.0
     variable packageDirectory [file dirname [file normalize [info script]]]
     variable supportedHpdfVersions [list 2.4.5]
